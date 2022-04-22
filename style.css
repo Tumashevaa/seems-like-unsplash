@@ -1,0 +1,15 @@
+.img1 {
+    width: 767px;
+    height: auto;
+}
+
+.hide {
+    display: none;
+}
+
+.circle {
+    width: 30px; 
+    height: 30px;
+    border: 1px solid #000;
+    border-radius: 50%;
+}
