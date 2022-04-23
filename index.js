@@ -10,7 +10,7 @@ const monthsMap = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'
 function render(picData, currentIndex, dataLenght) {
   document.querySelector('[data-control="qty"]').innerText = currentIndex + 1 + "/" + dataLenght
   document.querySelector('[data-info="profile-image"]').setAttribute('src', picData.user.profile_image.medium)
-  document.querySelector('[data-info="name"]').innerText = `Name: ${picData.user.name}`
+  document.querySelector('[data-info="name"]').innerText = `${picData.user.name}`
   document.querySelector('[data-info="user-name"]').innerText = `User name: ${picData.user.username}`
   document.querySelector('.circle').setAttribute('style', `background-color: ${picData.color}`)
   document.querySelector('[data-control="likesQty"]').innerText = `💔 ${picData.likes}`
