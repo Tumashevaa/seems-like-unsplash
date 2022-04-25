@@ -13,7 +13,7 @@ const monthsMap = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'
 
 function render(picData, currentIndex, dataLenght) {
   document.querySelector('[data-control="qty"]').innerText = currentIndex + 1 + "/" + dataLenght
-  document.querySelector('[data-info="profile-image"]').setAttribute('src', picData.user.profile_image.medium)
+  document.querySelector('[data-info="profile-image"]').setAttribute('src', picData.user.profile_image.large)
   document.querySelector('[data-info="name"]').innerText = `${picData.user.name}`
   document.querySelector('[data-info="user-name"]').innerText = `User name: ${picData.user.username}`
   document.querySelector('.circle').setAttribute('style', `background-color: ${picData.color}`)
@@ -25,6 +25,8 @@ function render(picData, currentIndex, dataLenght) {
   const userPortfolio = document.querySelector('.user-portfolio')
   const userPLink = userPortfolio.querySelector('a')
   userPLink.setAttribute('href', picData.user.portfolio_url)
+
+  document.querySelector('[data-info="prof-img"]').setAttribute('href', `https://unsplash.com/@${picData.user.username}`)
 
   if (picData.user.portfolio_url) {
     userPLink.setAttribute('href', picData.user.portfolio_url)
@@ -52,7 +54,6 @@ function render(picData, currentIndex, dataLenght) {
   const twitterProf = document.querySelector('.twitter-profile')
   const twitterLink = twitterProf.querySelector('a')
   twitterLink.setAttribute('href', picData.user.twitter_username)
-
   if (picData.user.social.twitter_username) {
     twitterLink.setAttribute('href', `https://twitter.com/${picData.user.twitter_username}`)
     twitterLink.innerText = `@${picData.user.twitter_username}`
@@ -63,11 +64,23 @@ function render(picData, currentIndex, dataLenght) {
     twitterProf.classList.add('hide')
   }
 
+  const linksHtml = document.querySelector('.links-html')
+  const linksHA = linksHtml.querySelector('a')
+  linksHA.setAttribute('href', picData.links.html)
+  if(picData.links.html) {
+    linksHA.innerText = `${picData.links.html}`
+    linksHtml.classList.remove('hide')
+  } else {
+    linksHA.innerText = ''
+    linksHtml.classList.add('hide')
+  }
+
+
   document.querySelector(".img1").setAttribute("src", picData.urls.regular)
-  // document.querySelector('.links-html').setAttribute('href', picData.links.html)
   document.querySelector('.img-full').setAttribute('href', picData.urls.full)
   document.querySelector('.img-full').setAttribute('data-pswp-width', picData.width)
   document.querySelector('.img-full').setAttribute('data-pswp-height', picData.height)
+  
 
 
   const descriptionImg = document.querySelector('[data-info="description-img"]')
