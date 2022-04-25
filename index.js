@@ -1,3 +1,7 @@
+
+
+
+
 // access key ptJ9sMq465MLUNnrewrag_75WkMawAuAFrdyxSeK_EE/
 // Secret key 60PrXNwZy3yyBl7FnIQuVST56Pb801yXJLandU8d32Y
 
@@ -59,9 +63,12 @@ function render(picData, currentIndex, dataLenght) {
     twitterProf.classList.add('hide')
   }
 
-  const image = document.querySelector(".img1")  
-  image.setAttribute("src", picData.urls.regular)
-  document.querySelector('.links-html').setAttribute('href', picData.links.html)
+  document.querySelector(".img1").setAttribute("src", picData.urls.regular)
+  // document.querySelector('.links-html').setAttribute('href', picData.links.html)
+  document.querySelector('.img-full').setAttribute('href', picData.urls.full)
+  document.querySelector('.img-full').setAttribute('data-pswp-width', picData.width)
+  document.querySelector('.img-full').setAttribute('data-pswp-height', picData.height)
+
 
   const descriptionImg = document.querySelector('[data-info="description-img"]')
   descriptionImg.innerText = picData.description === null ? '' : `${picData.description}`

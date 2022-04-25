@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5.2.2/dist/photoswipe.css">
     <title>AT</title>
 </head>
 <body>
@@ -12,6 +13,7 @@
         <header>
             <nav class="nav">AT</nav>
         </header>
+
         <!-- PREVIEW -->
         <div class="container">
             <div>
@@ -52,13 +54,26 @@
             <div class="circle left"></div>
         </div>
         <div data-info="description-img"></div>
-        <div>
-            <a class="links-html" href="" target="_blank">
-                <img class="img1">
+        
+        <div class="pswp-gallery" id="my-gallery">
+            <a class="img-full" href="" data-pswp-width="" data-pswp-height="" target="_blank">
+                <img class="img1" src="" alt="">
             </a>
         </div>
 
     </div>
 <script src="index.js"></script>
+
+<script type="module">
+import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe/dist/photoswipe-lightbox.esm.js';
+const lightbox = new PhotoSwipeLightbox({
+  gallery: '#my-gallery',
+  children: 'a',
+  pswpModule: () => import('https://unpkg.com/photoswipe'),
+});
+
+lightbox.init();
+</script>
+
 </body>
 </html>
