@@ -10,24 +10,19 @@
 
 const monthsMap = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-
 function render(picData, currentIndex, dataLenght) {
   document.querySelector('[data-control="qty"]').innerText = currentIndex + 1 + "/" + dataLenght
   document.querySelector('[data-info="profile-image"]').setAttribute('src', picData.user.profile_image.large)
+  document.querySelector('[data-info="prof-img"]').setAttribute('href', `https://unsplash.com/@${picData.user.username}`)
   document.querySelector('[data-info="name"]').innerText = `${picData.user.name}`
   document.querySelector('[data-info="user-name"]').innerText = `User name: ${picData.user.username}`
   document.querySelector('.circle').setAttribute('style', `background-color: ${picData.color}`)
   document.querySelector('[data-control="likesQty"]').innerText = `💔 ${picData.likes}`
-  
-  const userBio = document.querySelector('[data-info="user-bio"]')
-  userBio.innerText = picData.user.bio === null ? '' : `Bio: ${picData.user.bio}`
+  document.querySelector('[data-info="user-bio"]').innerText = picData.user.bio === null ? '' : `Bio: ${picData.user.bio}`
 
   const userPortfolio = document.querySelector('.user-portfolio')
   const userPLink = userPortfolio.querySelector('a')
   userPLink.setAttribute('href', picData.user.portfolio_url)
-
-  document.querySelector('[data-info="prof-img"]').setAttribute('href', `https://unsplash.com/@${picData.user.username}`)
-
   if (picData.user.portfolio_url) {
     userPLink.setAttribute('href', picData.user.portfolio_url)
     userPLink.innerText = picData.user.portfolio_url
@@ -40,7 +35,6 @@ function render(picData, currentIndex, dataLenght) {
   const instaProf = document.querySelector('.instagram-profile')
   const instaLink = instaProf.querySelector('a')
   instaLink.setAttribute('href', picData.user.social.instagram_username)
-  
   if (picData.user.social.instagram_username) {
     instaLink.setAttribute('href', `https://instagram.com/${picData.user.social.instagram_username}`)
     instaLink.innerText = `@${picData.user.social.instagram_username}`
@@ -64,24 +58,10 @@ function render(picData, currentIndex, dataLenght) {
     twitterProf.classList.add('hide')
   }
 
-  const linksHtml = document.querySelector('.links-html')
-  const linksHA = linksHtml.querySelector('a')
-  linksHA.setAttribute('href', picData.links.html)
-  if(picData.links.html) {
-    linksHA.innerText = `${picData.links.html}`
-    linksHtml.classList.remove('hide')
-  } else {
-    linksHA.innerText = ''
-    linksHtml.classList.add('hide')
-  }
-
-
   document.querySelector(".img1").setAttribute("src", picData.urls.regular)
   document.querySelector('.img-full').setAttribute('href', picData.urls.full)
   document.querySelector('.img-full').setAttribute('data-pswp-width', picData.width)
   document.querySelector('.img-full').setAttribute('data-pswp-height', picData.height)
-  
-
 
   const descriptionImg = document.querySelector('[data-info="description-img"]')
   descriptionImg.innerText = picData.description === null ? '' : `${picData.description}`
@@ -95,6 +75,8 @@ function render(picData, currentIndex, dataLenght) {
   const minutesAt = createdAt.getMinutes()
   const dateStr = `${dateAt} ${monthsMap[monthAt]} ${yearAt} ${hourAt}:${minutesAt}`
   document.querySelector(".date").innerText = dateStr
+
+  document.querySelector(".links-html").innerText = picData.links.html
 }
 
 
