@@ -87,3 +87,25 @@ div {
     border: 1px solid #000;
     border-radius: 50%;
 }
+
+.pad {
+
+}
+
+.grid {
+    display: grid;
+    align-items: start;
+}
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 15px;
+    grid-row-gap: 1em;
+    
+}
+
+.prev-img {
+    position: relative;
+    height: auto;
+    width: 100%;
+}

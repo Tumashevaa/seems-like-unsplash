@@ -77,6 +77,11 @@ function render(picData, currentIndex, dataLenght) {
   document.querySelector(".date").innerText = dateStr
 
   document.querySelector(".links-html").innerText = picData.links.html
+
+  // const fotoPrev = document.querySelector('[data-picdata="array-prev"]')
+  // [picData[currentIndex].urls.small_s3]
+
+
 }
 
 
@@ -86,6 +91,14 @@ fetch('https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawA
   })
   .then((data) => {
     console.log(data)
+
+   const newData = data.map(el => el.urls.thumb)
+   console.log(newData)
+   
+
+    // data.forEach((item, index, urls) =>
+    //   console.log(`${index} ${item.user.username} ${item.urls.thumb}`)
+    // )
     
     let currentIndex = 0
     const dataLenght = data.length
