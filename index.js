@@ -92,7 +92,7 @@ fetch('https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawA
     })
     const imagesHtml = imagesHtmlList.join('\n')
 
-    const imageMosaic = document.querySelector('[data-wrapper]')
+    const imageMosaic = document.querySelector('.columns-mosaic')
     imageMosaic.innerHTML = imagesHtml
     
     let currentIndex = 0
