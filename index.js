@@ -11,9 +11,9 @@
 const monthsMap = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 function render(picData, currentIndex, dataLenght) {
-  document.querySelector('[data-control="qty"]').innerText = currentIndex + 1 + "/" + dataLenght
-  document.querySelector('[data-info="profile-image"]').setAttribute('src', picData.user.profile_image.large)
-  document.querySelector('[data-info="prof-img"]').setAttribute('href', `https://unsplash.com/@${picData.user.username}`)
+  document.querySelector('[data-control="counter"]').innerText = currentIndex + 1 + "/" + dataLenght
+  document.querySelector('[data-info="avatar"]').setAttribute('src', picData.user.profile_image.large)
+  document.querySelector('[data-info="portfolio-link"]').setAttribute('href', `https://unsplash.com/@${picData.user.username}`)
   document.querySelector('[data-info="name"]').innerText = `${picData.user.name}`
   document.querySelector('[data-info="user-name"]').innerText = `User name: ${picData.user.username}`
   document.querySelector('.circle').setAttribute('style', `background-color: ${picData.color}`)
@@ -88,7 +88,7 @@ fetch('https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawA
     console.log(data)
 
     const imagesHtmlList = data.map(function (el) {
-      return `<img class="prev-img" src="${el.urls.small_s3}" alt="">`
+      return `<img class="elementMosaic" src="${el.urls.small_s3}" alt="">`
     })
     const imagesHtml = imagesHtmlList.join('\n')
 
