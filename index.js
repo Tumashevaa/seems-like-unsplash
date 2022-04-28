@@ -86,32 +86,28 @@ fetch('https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawA
   .then((data) => {
     console.log(data)
 
-
     // MOSAIC
     const imagesHtmlList = data.map(function (el) {
+      const bioHtml = el.user.bio === null ? '' : `<div class="mosaic-bio">Bio: ${el.user.bio}</div>`
       return `
         <div class="mosaic-item">
-          <a class="mosaic-img-link" href="${el.urls.full}" data-pswp-width="${el.width}" data-pswp-height="${el.height}" target="_blank">
+          <a href="${el.urls.full}" data-img data-pswp-width="${el.width}" data-pswp-height="${el.height}" target="_blank">
             <img class="mosaic-img" src="${el.urls.small_s3}" alt="">
           </a>
+          <div class="mosaic-info">
+            <a href='https://unsplash.com/@${el.user.username}' target="_blank">
+              <img class='mosaic-avatar' src="${el.user.profile_image.large}" alt="">
+            </a>
+            <a href="https://unsplash.com/@${el.user.username}" target="_blank">${el.user.name}</a>
+            ${bioHtml}
+          </div>
         </div>
       `
     })
 
-    console.log(imagesHtmlList)
-
     const imagesHtml = imagesHtmlList.join('\n')
     const imageMosaic = document.querySelector('[data-wrapper]')
     imageMosaic.innerHTML = imagesHtml
-
-
-
-    // const itemNameList = data.map(function (el) {
-    //   return `<div class="item__username">${el.user.name}</div>` 
-    // })
-    // const itemUsername = itemNameList.join(`\n`)
-    // const itemUsernameFinally = document.querySelector('.item_content')
-    // itemUsernameFinally.innerHTML = itemUsername
     // MOSAIC
     
 

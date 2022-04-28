@@ -67,8 +67,8 @@
         </div>
     </div>
 
-    <div class="mosaic-wrapper pswp-gallery" id="my-gallery" data-wrapper>
-        <!-- тут будет установлен контент через js -->
+    <div class="mosaic-wrapper" data-wrapper>
+        <!-- тут будет установлен контент через js --> 
     </div>
 
     <script src="index.js"></script>
@@ -76,9 +76,9 @@
     <script type="module">
     import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe/dist/photoswipe-lightbox.esm.js';
     const lightbox = new PhotoSwipeLightbox({
-    gallery: '#my-gallery',
-    children: 'a',
-    pswpModule: () => import('https://unpkg.com/photoswipe'),
+        gallery: '[data-wrapper]',
+        children: '[data-img]',
+        pswpModule: () => import('https://unpkg.com/photoswipe'),
     });
 
     lightbox.init();

@@ -101,9 +101,19 @@ div {
 
 .mosaic-item {
     width: 30%;
+    margin: 10px;
 }
 
 .mosaic-img {
     width: 100%;
 }
 
+.mosaic-avatar {
+    width: 12%;
+    height: auto;
+    border-radius: 50%;
+}
+
+.mosaic-bio {
+    font-size: 13px;
+}
