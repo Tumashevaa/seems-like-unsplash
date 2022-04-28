@@ -114,3 +114,8 @@ div {
     height: auto;
     width: 100%;
 }
+
+.wrapper-username {
+    display: grid;
+    position: absolute;
+}

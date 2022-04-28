@@ -66,7 +66,6 @@ function render(picData, currentIndex, dataLenght) {
   const descriptionImg = document.querySelector('[data-info="description-img"]')
   descriptionImg.innerText = picData.description === null ? '' : `${picData.description}`
 
-
   const createdAt = new Date(picData.created_at)
   const dateAt = createdAt.getDate()
   const monthAt = createdAt.getMonth()
@@ -87,14 +86,24 @@ fetch('https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawA
   .then((data) => {
     console.log(data)
 
+
+    // MOSAIC
     const imagesHtmlList = data.map(function (el) {
       return `<img class="elementMosaic" src="${el.urls.small_s3}" alt="">`
     })
     const imagesHtml = imagesHtmlList.join('\n')
-
     const imageMosaic = document.querySelector('.columns-mosaic')
     imageMosaic.innerHTML = imagesHtml
+
+    const userNameList = data.map(function (el) {
+      return `<p class="userNameLink">${el.user.name}</p>` 
+    })
+    const userUsername = userNameList.join(`\n`)
+    const username123 = document.querySelector('[data-wrapper-username]')
+    username123.innerHTML = userUsername
+    // MOSAIC
     
+
     let currentIndex = 0
     const dataLenght = data.length
     
