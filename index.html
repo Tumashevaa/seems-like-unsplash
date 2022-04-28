@@ -67,38 +67,22 @@
         </div>
     </div>
 
-    <div class="mosaic-wrapper" data-wrapper>
+    <div class="mosaic-wrapper pswp-gallery" id="my-gallery" data-wrapper>
         <!-- тут будет установлен контент через js -->
     </div>
 
+    <script src="index.js"></script>
 
+    <script type="module">
+    import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe/dist/photoswipe-lightbox.esm.js';
+    const lightbox = new PhotoSwipeLightbox({
+    gallery: '#my-gallery',
+    children: 'a',
+    pswpModule: () => import('https://unpkg.com/photoswipe'),
+    });
 
-    <!-- <div>
-        <div>
-            <div>
-                <div>
-                    <div class="wrapper" data-wrapper style="--column-gutter:24px; --columns:3;">
-                        <div class="columns-mosaic" style="--row-gutter:24px"></div>
-                        <div class="wrapper-username" data-wrapper-username></div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-<script src="index.js"></script>
-
-<script type="module">
-import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe/dist/photoswipe-lightbox.esm.js';
-const lightbox = new PhotoSwipeLightbox({
-  gallery: '#my-gallery',
-  children: 'a',
-  pswpModule: () => import('https://unpkg.com/photoswipe'),
-});
-
-lightbox.init();
-</script>
+    lightbox.init();
+    </script>
 
 </body>
 </html>
