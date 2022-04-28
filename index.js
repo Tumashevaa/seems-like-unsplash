@@ -89,18 +89,22 @@ fetch('https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawA
 
     // MOSAIC
     const imagesHtmlList = data.map(function (el) {
-      return `<img class="elementMosaic" src="${el.urls.small_s3}" alt="">`
+      return `
+        <div class="mosaic-item">
+          <img class="mosaic-img" src="${el.urls.small_s3}" alt="">
+        </div>
+      `
     })
     const imagesHtml = imagesHtmlList.join('\n')
-    const imageMosaic = document.querySelector('.columns-mosaic')
+    const imageMosaic = document.querySelector('[data-wrapper]')
     imageMosaic.innerHTML = imagesHtml
 
-    const userNameList = data.map(function (el) {
-      return `<p class="userNameLink">${el.user.name}</p>` 
-    })
-    const userUsername = userNameList.join(`\n`)
-    const username123 = document.querySelector('[data-wrapper-username]')
-    username123.innerHTML = userUsername
+    // const itemNameList = data.map(function (el) {
+    //   return `<div class="item__username">${el.user.name}</div>` 
+    // })
+    // const itemUsername = itemNameList.join(`\n`)
+    // const itemUsernameFinally = document.querySelector('.item_content')
+    // itemUsernameFinally.innerHTML = itemUsername
     // MOSAIC
     
 
