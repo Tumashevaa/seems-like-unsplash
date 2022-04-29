@@ -89,7 +89,14 @@ fetch('https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawA
     // MOSAIC
     const imagesHtmlList = data.map(function (el) {
       const bioHtml = el.user.bio === null ? '' : `<div class="mosaic-bio">Bio: ${el.user.bio}</div>`
-      return `
+      const instaHtml = el.user.social.instagram_username ===null ? '' : 
+        `Instagram: <a href='https://instagram.com/${el.user.social.instagram_username}' target="_blank">@${el.user.social.instagram_username}
+        </a>`
+      const twitterHtml = el.user.twitter_username ===null ? '' : 
+        `Twitter: <a href='https://twitter.com/${el.user.twitter_username}' target="_blank">@${el.user.twitter_username}
+        </a>`
+      // const portfolioHtml = el.user.portfolio_url === null ? '' : `Portfolio: <a href=''></a>`
+        return `
         <div class="mosaic-item">
           <a href="${el.urls.full}" data-img data-pswp-width="${el.width}" data-pswp-height="${el.height}" target="_blank">
             <img class="mosaic-img" src="${el.urls.small_s3}" alt="">
@@ -100,6 +107,8 @@ fetch('https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawA
             </a>
             <a href="https://unsplash.com/@${el.user.username}" target="_blank">${el.user.name}</a>
             ${bioHtml}
+            ${instaHtml}
+            ${twitterHtml}
           </div>
         </div>
       `
