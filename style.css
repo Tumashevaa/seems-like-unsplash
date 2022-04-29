@@ -87,9 +87,9 @@ div {
     display: none;
 }
 
-.circle {
-    width: 30px; 
-    height: 30px;
+.circle-color {
+    width: 17px; 
+    height: 17px;
     border: 1px solid #000;
     border-radius: 50%;
 }
@@ -108,12 +108,21 @@ div {
     width: 100%;
 }
 
+.mosaic-content{
+
+}
+
 .mosaic-avatar {
     width: 12%;
     height: auto;
     border-radius: 50%;
 }
 
-.mosaic-bio {
+.mosaic-info {
     font-size: 13px;
+}
+
+.mosaic-likes {
+    display: flex;
+    justify-content: flex-end;
 }

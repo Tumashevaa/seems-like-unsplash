@@ -88,25 +88,45 @@ fetch('https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawA
 
     // MOSAIC
     const imagesHtmlList = data.map(function (el) {
-      const bioHtml = el.user.bio === null ? '' : `<div class="mosaic-bio">Bio: ${el.user.bio}</div>`
+      // document.querySelector('.circle').setAttribute('style', `background-color: ${picData.color}`)
+      const colorHtml = `<div class='circle-color' style='background-color: ${el.color}'></div>`
+
+      const createdAtHtml = new Date(el.created_at)
+      const dateAt = createdAtHtml.getDate()
+      const monthAt = createdAtHtml.getMonth()
+      const yearAt = createdAtHtml.getFullYear()
+      const hourAt = createdAtHtml.getHours()
+      const minutesAt = createdAtHtml.getMinutes()
+      const dateStrHtml = `${dateAt} ${monthsMap[monthAt]} ${yearAt} ${hourAt}:${minutesAt}`
+
+      const bioHtml = el.user.bio === null ? '' : `<div>Bio: ${el.user.bio}</div>`
       const instaHtml = el.user.social.instagram_username ===null ? '' : 
-        `Instagram: <a href='https://instagram.com/${el.user.social.instagram_username}' target="_blank">@${el.user.social.instagram_username}
-        </a>`
+        `<div> Instagram: <a href='https://instagram.com/${el.user.social.instagram_username}' target="_blank">@${el.user.social.instagram_username}
+        </a></div>`
       const twitterHtml = el.user.twitter_username ===null ? '' : 
-        `Twitter: <a href='https://twitter.com/${el.user.twitter_username}' target="_blank">@${el.user.twitter_username}
-        </a>`
-      // const portfolioHtml = el.user.portfolio_url === null ? '' : `Portfolio: <a href=''></a>`
+        `<div> Twitter: <a href='https://twitter.com/${el.user.twitter_username}' target="_blank">@${el.user.twitter_username}
+        </a></div>`
+      const portfolioHtml = el.user.portfolio_url === null ? '' : 
+        `<div> Portfolio: <a href='${el.user.portfolio_url}' target="_blank">${el.user.portfolio_url}
+        </a></div>`
+
         return `
         <div class="mosaic-item">
           <a href="${el.urls.full}" data-img data-pswp-width="${el.width}" data-pswp-height="${el.height}" target="_blank">
             <img class="mosaic-img" src="${el.urls.small_s3}" alt="">
           </a>
           <div class="mosaic-info">
-            <a href='https://unsplash.com/@${el.user.username}' target="_blank">
-              <img class='mosaic-avatar' src="${el.user.profile_image.large}" alt="">
-            </a>
-            <a href="https://unsplash.com/@${el.user.username}" target="_blank">${el.user.name}</a>
+            <div class='mosaic-likes'>💔 ${el.likes}</div>
+            ${colorHtml}
+            <div>${dateStrHtml}</div>
+            <div class='mosaic-content'>
+              <a href='https://unsplash.com/@${el.user.username}' target="_blank">
+                <img class='mosaic-avatar' src="${el.user.profile_image.large}" alt="">
+              </a>
+              <a href="https://unsplash.com/@${el.user.username}" target="_blank">${el.user.name}</a>
+            </div>  
             ${bioHtml}
+            ${portfolioHtml}
             ${instaHtml}
             ${twitterHtml}
           </div>
