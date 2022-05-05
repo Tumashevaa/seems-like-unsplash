@@ -126,3 +126,12 @@ div {
     display: flex;
     justify-content: flex-end;
 }
+
+.container-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-nextArroy {
+    
+}
