@@ -11,6 +11,12 @@ const monthsMap = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'
  */
 let counterPage = 1
 
+
+/**
+ * element button
+ */
+const buttonEl = document.querySelector('[data-btn]')
+
 // const result = createItemHtmlFromObject(
 //   {
 //     likes: 12,
@@ -135,13 +141,34 @@ function getData(page) {
     })
 }
 
+
+/**
+ * данная функция переключает состояние кнопки в зависимости от значения аргумента,
+ * ничего не возвращает
+ * @param {boolean} sign 
+ */ 
+function toggleButtonState(sign) {
+  if (sign === true) {
+    buttonEl.innerText = 'Loading...'
+    buttonEl.disabled = true
+  } else {
+    buttonEl.innerText = 'Show more photos'
+    buttonEl.disabled = false
+  }
+}
+
+
+
 /**
  * 1 получает данные для текущей страницы
  * 2 создает html, добавляет на страницу
  */
 function renderAll() {
+  toggleButtonState(true)
+
   getData(counterPage).then(function (data) {
     renderItems(createHtmlStringFromArrayOfElements(data))
+    toggleButtonState(false)
   })
 }
 
@@ -149,9 +176,7 @@ function renderAll() {
 
 renderAll()
 
-document.querySelector('[data-btn]').addEventListener('click', function () {
+buttonEl.addEventListener('click', function () {
   counterPage ++
-
   renderAll()
 })
-
