@@ -17,36 +17,53 @@ let counterPage = 1
  */
 const buttonEl = document.querySelector('[data-btn]')
 
-// const result = createItemHtmlFromObject(
-//   {
-//     likes: 12,
-//     height: 123,
-//     width: 124,
-//     description:'sdfghjkl',
-//     created_at: '2022-03-31T10:47:51-04:00',
-//     color: 'green',
-//     urls: {
-//       portfolio_url: 'https://images.unsplash.com/photo1',
-//       small_s3: 'https://images.unsplash.com/photo1',
-//       full: "https://images.unsplash.com/photo-1648737965997"
-//     },
-//     user: {
-//       portfolio_url: 'https://www.anya.com',
-//       name:'fghjk',
-//       username: 'fghjk',
-//       bio:'SEDFGHBJNKML',
-//       profile_image: {
-//         large: 'https://images.unsplash.com/photo1'
-//       },
-//       social: {
-//         twitter_username:'bnjk',
-//         instagram_username: 'fghjkl;',
-//       }
-//     }
-//   }
-// )
-// console.log(result)
+
 /**
+ * функция получает данные в виде строки о времени создании фото и формирует эти данные в корректный формат, поочередно выполняя методы к одним и тем же данным, а далее все результаты совмешаем в одну чистовую строку
+ * @param {string} createdAtStr 
+ * @returns 
+ */
+function formatDateTime(createdAtStr) {
+  const createdAt = new Date(createdAtStr)
+  const dateAt = createdAt.getDate()
+  const monthAt = createdAt.getMonth()
+  const yearAt = createdAt.getFullYear()
+  const hourAt = createdAt.getHours()
+  const minutesAt = createdAt.getMinutes()
+  return `${dateAt} ${monthsMap[monthAt]} ${yearAt} ${hourAt}:${minutesAt}`
+}
+
+/**
+ * Пример:
+ * const result = createItemHtmlFromObject(
+ *   {
+ *     likes: 12,
+ *     height: 123,
+ *     width: 124,
+ *     description:'sdfghjkl',
+ *     created_at: '2022-03-31T10:47:51-04:00',
+ *     color: 'green',
+ *     urls: {
+ *       portfolio_url: 'https://images.unsplash.com/photo1',
+ *       small_s3: 'https://images.unsplash.com/photo1',
+ *       full: "https://images.unsplash.com/photo-1648737965997"
+ *     },
+ *     user: {
+ *       portfolio_url: 'https://www.anya.com',
+ *       name:'fghjk',
+ *       username: 'fghjk',
+ *       bio:'SEDFGHBJNKML',
+ *       profile_image: {
+ *         large: 'https://images.unsplash.com/photo1'
+ *       },
+ *       social: {
+ *         twitter_username:'bnjk',
+ *         instagram_username: 'fghjkl;',
+ *       }
+ *     }
+ *   }
+ * )
+ * 
  * функция создает строку с html из объекта с данными
  * @param {object} el - данные о фотографии
  * @returns {string} - html разметка о фотографии
@@ -54,13 +71,8 @@ const buttonEl = document.querySelector('[data-btn]')
 function createItemHtmlFromObject(el) {
   const colorHtml = `<div class='circle-color' style='background-color: ${el.color}'></div>`
 
-  const createdAt = new Date(el.created_at)
-  const dateAt = createdAt.getDate()
-  const monthAt = createdAt.getMonth()
-  const yearAt = createdAt.getFullYear()
-  const hourAt = createdAt.getHours()
-  const minutesAt = createdAt.getMinutes()
-  const dateStr = `${dateAt} ${monthsMap[monthAt]} ${yearAt} ${hourAt}:${minutesAt}`
+  const dateStr = formatDateTime(el.created_at)
+
 
   const description = el.description === null ? '' : `Description: ${el.description}`
 
