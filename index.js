@@ -2,6 +2,7 @@
 // Secret key 60PrXNwZy3yyBl7FnIQuVST56Pb801yXJLandU8d32Y
 
 // https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawAuAFrdyxSeK_EE
+// https://api.unsplash.com/photos/H0bmuj6xCN4?client_id=ptJ9sMq465MLUNnrewrag_75WkMawAuAFrdyxSeK_EE
 
 const monthsMap = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -161,12 +162,14 @@ function renderItems(str) {
  * @param {number} page номер страницы
  * @returns {Promise} промис с данными
  */
-function getData(page) {
+function getAllPhotosData(page) {
   return fetch(`https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawAuAFrdyxSeK_EE&page=${page}`)
     .then((response) => {
       return response.json();
     })
 }
+
+
 
 /**
  * данная функция переключает состояние кнопки в зависимости от значения аргумента,
@@ -190,7 +193,8 @@ function toggleButtonState(sign) {
 function renderAll() {
   toggleButtonState(true)
 
-  getData(counterPage).then(function (data) {
+  getAllPhotosData(counterPage).then(function (data) {
+    console.log(data)
     renderItems(createHtmlStringFromArrayOfElements(data))
     toggleButtonState(false)
   })
