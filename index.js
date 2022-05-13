@@ -125,6 +125,7 @@ function createItemHtmlFromObject(el) {
         ${portfolioHtml}
         ${instaHtml}
         ${twitterHtml}
+        <button data-byId></button>
       </div>
     </div>
   `
@@ -157,10 +158,12 @@ function renderItems(str) {
   document.querySelector('[data-wrapper]').insertAdjacentHTML('beforeend', str)
 }
 
+
+
 /**
  * функция делает http запрос к апи ансплеша подставляя туда указанный номер страницы
  * @param {number} page номер страницы
- * @returns {Promise} промис с данными
+ * @returns {Promise<Photos>} промис с данными
  */
 function getAllPhotosData(page) {
   return fetch(`https://api.unsplash.com/photos/?client_id=ptJ9sMq465MLUNnrewrag_75WkMawAuAFrdyxSeK_EE&page=${page}`)
@@ -168,6 +171,23 @@ function getAllPhotosData(page) {
       return response.json();
     })
 }
+/**
+ * функция делает http запрос к апи ансплеша подставляя туда айди
+ * получает промисс и возвращает промисс
+ * @param {id} id  адрес определенной фотографии
+ * @returns {Promise<PhotoData>} промис с данными
+ */
+function getPhotoDataById(id) {
+ return fetch(`https://api.unsplash.com/photos/${id}?client_id=ptJ9sMq465MLUNnrewrag_75WkMawAuAFrdyxSeK_EE`)
+  .then((response) => {
+    return response.json();
+  })
+}
+
+getPhotoDataById("hZko7zEvqg4").then(function (data) {
+  console.log(data)
+  // createHtmlStringFromArrayOfElements(dataById)
+})
 
 
 
@@ -199,6 +219,7 @@ function renderAll() {
     toggleButtonState(false)
   })
 }
+
 
 // -----------------------------------------------------------------
 
