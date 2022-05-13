@@ -34,10 +34,10 @@ function formatDateTime(createdAtStr) {
  * данная функция получает 3 параметра
  * делает проверку на наличие url
  * создает html строку на основе параметров
- * @param {name_social} title 
- * @param {url_social} url 
- * @param {username_InSocial} username 
- * @returns html string
+ * @param {string} title - название социалки
+ * @param {string|null} url - ссылка на пользователя в социалке
+ * @param {string=} username - никнейм пользователя в социалке
+ * @returns {string} html
  */
 function createHtmlForSocialBlocks(title, url, username) {
   if (!url) {
