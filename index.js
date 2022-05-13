@@ -33,6 +33,25 @@ function formatDateTime(createdAtStr) {
   return `${dateAt} ${monthsMap[monthAt]} ${yearAt} ${hourAt}:${minutesAt}`
 }
 
+
+function createHtmlForSocialBlocks(title, url, username) {
+  if (!url) {
+    return ''
+  }
+  
+  return `<div> ${title}: <a href='${url}' target="_blank">${username ? `@${username}` : url}</a></div>`
+
+  // const instaHtml = el.user.social.instagram_username === null ? '' : 
+  //   `<div> Instagram: <a href='https://instagram.com/${el.user.social.instagram_username}' target="_blank">@${el.user.social.instagram_username}
+  //   </a></div>`
+  // const twitterHtml = el.user.social.twitter_username === null ? '' : 
+  //   `<div> Twitter: <a href='https://twitter.com/${el.user.social.twitter_username}' target="_blank">@${el.user.social.twitter_username}
+  //   </a></div>`
+  // const portfolioHtml = el.user.portfolio_url === null ? '' : 
+    // `<div> Portfolio: <a href='${el.user.portfolio_url}' target="_blank">${el.user.portfolio_url}
+    // </a></div>`
+}
+
 /**
  * Пример:
  * const result = createItemHtmlFromObject(
@@ -70,22 +89,36 @@ function formatDateTime(createdAtStr) {
  */
 function createItemHtmlFromObject(el) {
   const colorHtml = `<div class='circle-color' style='background-color: ${el.color}'></div>`
-
   const dateStr = formatDateTime(el.created_at)
-
-
   const description = el.description === null ? '' : `Description: ${el.description}`
-
   const bioHtml = el.user.bio === null ? '' : `<div>Bio: ${el.user.bio}</div>`
-  const instaHtml = el.user.social.instagram_username === null ? '' : 
-    `<div> Instagram: <a href='https://instagram.com/${el.user.social.instagram_username}' target="_blank">@${el.user.social.instagram_username}
-    </a></div>`
-  const twitterHtml = el.user.social.twitter_username === null ? '' : 
-    `<div> Twitter: <a href='https://twitter.com/${el.user.social.twitter_username}' target="_blank">@${el.user.social.twitter_username}
-    </a></div>`
-  const portfolioHtml = el.user.portfolio_url === null ? '' : 
-    `<div> Portfolio: <a href='${el.user.portfolio_url}' target="_blank">${el.user.portfolio_url}
-    </a></div>`
+
+  // const instaHtml = el.user.social.instagram_username === null ? '' : 
+  //   `<div> Instagram: <a href='https://instagram.com/${el.user.social.instagram_username}' target="_blank">@${el.user.social.instagram_username}
+  //   </a></div>`
+  // const twitterHtml = el.user.social.twitter_username === null ? '' : 
+  //   `<div> Twitter: <a href='https://twitter.com/${el.user.social.twitter_username}' target="_blank">@${el.user.social.twitter_username}
+  //   </a></div>`
+  // const portfolioHtml = el.user.portfolio_url === null ? '' : 
+  //   `<div> Portfolio: <a href='${el.user.portfolio_url}' target="_blank">${el.user.portfolio_url}
+  //   </a></div>`
+
+  const portfolioHtml = createHtmlForSocialBlocks(
+    'Portfolio',
+    el.user.portfolio_url
+  )
+
+  const instaHtml = createHtmlForSocialBlocks(
+    'Instagram',
+    el.user.social.instagram_username ? `https://instagram.com/${el.user.social.instagram_username}` : null,
+    el.user.social.instagram_username
+  )
+  
+  const twitterHtml = createHtmlForSocialBlocks(
+    'Twitter',
+    el.user.social.twitter_username ? `https://twitter.com/${el.user.social.twitter_username}` : null,
+    el.user.social.twitter_username
+  )
 
     return `
     <div class="mosaic-item">
