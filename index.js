@@ -12,7 +12,7 @@ const monthsMap = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'
 let counterPage = 1
 
 /**
- * element button
+ * element button page
  */
 const buttonEl = document.querySelector('[data-btn]')
 
@@ -125,12 +125,14 @@ function createItemHtmlFromObject(el) {
         ${portfolioHtml}
         ${instaHtml}
         ${twitterHtml}
-        <button data-byId></button>
+        <div>
+          <button class='btnItemById turn-on' data-btnItemById='${el.id}'>Additional Information</button>
+        </div>
+        
       </div>
     </div>
   `
 }
-
 
 /**
  * данная функция принимает массив объектов и возвращает строку со всеми html элементами
@@ -158,8 +160,6 @@ function renderItems(str) {
   document.querySelector('[data-wrapper]').insertAdjacentHTML('beforeend', str)
 }
 
-
-
 /**
  * функция делает http запрос к апи ансплеша подставляя туда указанный номер страницы
  * @param {number} page номер страницы
@@ -171,6 +171,20 @@ function getAllPhotosData(page) {
       return response.json();
     })
 }
+
+document.addEventListener('click', function(event) {
+  const id = event.target.getAttribute('data-btnItemById')
+
+  if (id !== null) {
+    getPhotoDataById(id).then(function(data) {
+      console.log(data)
+
+      return alert(`Camera name: ${data.exif.name}`)
+    })
+  }
+  
+})
+
 /**
  * функция делает http запрос к апи ансплеша подставляя туда айди
  * получает промисс и возвращает промисс
@@ -183,13 +197,6 @@ function getPhotoDataById(id) {
     return response.json();
   })
 }
-
-getPhotoDataById("hZko7zEvqg4").then(function (data) {
-  console.log(data)
-  // createHtmlStringFromArrayOfElements(dataById)
-})
-
-
 
 /**
  * данная функция переключает состояние кнопки в зависимости от значения аргумента,

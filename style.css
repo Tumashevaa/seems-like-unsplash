@@ -108,6 +108,7 @@ div {
     width: 100%;
 }
 
+
 .mosaic-avatar {
     width: 12%;
     height: auto;
@@ -127,4 +128,8 @@ div {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+}
+
+.btnItemById {
+    font-size: 13px;
 }
