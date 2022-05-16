@@ -128,7 +128,9 @@ function createItemHtmlFromObject(el) {
         <div>
           <button class='btnItemById turn-on' data-btnItemById='${el.id}'>Additional Information</button>
         </div>
-        
+        <div data-additionalInfo='${el.id}'>
+          
+        </div>
       </div>
     </div>
   `
@@ -172,6 +174,13 @@ function getAllPhotosData(page) {
     })
 }
 
+/**
+ * обработчик событий на весь документ
+ * передаем функцию, чтобы при клике на определенной кнопке с заданным атрибутом происходили следующие действия
+ * если id не нулл, то функция делает http запрос к апи ансплеша подставляя туда айди получает промисс и возвращает промисс
+ * внутри метода then функция в нужное  место должна перебирать объект и подставлять нужный контент
+ * 
+ */
 document.addEventListener('click', function(event) {
   const id = event.target.getAttribute('data-btnItemById')
 
@@ -179,10 +188,19 @@ document.addEventListener('click', function(event) {
     getPhotoDataById(id).then(function(data) {
       console.log(data)
 
-      return alert(`Camera name: ${data.exif.name}`)
+      const divDataAdditionalInfo = document.querySelector(`[data-additionalInfo='${id}']`)
+
+      const cameraName = data.exif.name === null ? '' : `<div>Camera name: ${data.exif.name}</div>`
+      const isoEl = data.exif.iso === null ? '' : `<div>ISO: ${data.exif.iso}</div>`
+      const aperture = data.exif.aperture === null ? '' : `<div>Aperture: ${data.exif.aperture}</div>`
+      const exposureTime = data.exif.exposure_time === null ? '' : `<div>Exposure time: ${data.exif.exposure_time}</div>`
+      const focalLength = data.exif.focal_length === null ? '' : `<div>Focal length: ${data.exif.focal_length}</div>`
+      const country = data.location.country === null ? '' : `<div>Country: ${data.location.country}</div>`
+      const city = data.location.city === null ? '' : `<div>City: ${data.location.city}</div>`
+      const resultAdditionalInfo = `${cameraName}${isoEl}${aperture}${exposureTime}${focalLength}${country}${city}`
+      divDataAdditionalInfo.innerHTML = resultAdditionalInfo || `No data`
     })
   }
-  
 })
 
 /**
