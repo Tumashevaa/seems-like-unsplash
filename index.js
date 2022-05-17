@@ -239,7 +239,15 @@ function renderAll() {
   toggleButtonState(true)
 
   getAllPhotosData(counterPage).then(function (data) {
-    console.log(data)
+    debugger;
+    let size = 3
+    let subData = []
+
+    for (let index = 0; index < Math.floor(data.length / size); index++) {
+      subData[index] = data.slice((index * size), (index == 2 ? (index * size) + 4 : (index * size) + size))
+    }
+    console.log(subData)
+    
     renderItems(createHtmlStringFromArrayOfElements(data))
     toggleButtonState(false)
   })
