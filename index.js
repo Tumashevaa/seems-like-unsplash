@@ -153,13 +153,24 @@ function createHtmlStringFromArrayOfElements(arr) {
 }
 
 /**
- * данная функция получает любую строку с html данными и каждый раз перезаписывает в data-wrapper
- * @param {string} str - любая строка
+ * данная функция получает массив строк с html данными и каждый раз перезаписывает в data-wrapper
+ * @param {string[]} htmlColumns - массив строк
  */
-function renderItems(str) {
+function renderItems(htmlColumns) {
   //выбираем элемент в html куда будем подставлять результат строки со всеми html
   //в выбранный элемент в html подставляем строку с всеми html элементами
-  document.querySelector('[data-wrapper]').insertAdjacentHTML('beforeend', str)
+  // array.forEach(function (item, index) {
+  //   columns[index].insertAdjacentHTML('beforeend', str)
+  // })
+
+  const wrapperEl = document.querySelector('[data-wrapper]')
+  const colElements = wrapperEl.querySelectorAll('[data-col]')
+
+  htmlColumns.forEach(function (str, index) {
+    colElements[index].insertAdjacentHTML('beforeend', str)
+  })
+
+  
 }
 
 /**
@@ -186,8 +197,6 @@ document.addEventListener('click', function(event) {
 
   if (id !== null) {
     getPhotoDataById(id).then(function(data) {
-      console.log(data)
-
       const divDataAdditionalInfo = document.querySelector(`[data-additionalInfo='${id}']`)
 
       const cameraName = data.exif.name === null ? '' : `<div>Camera name: ${data.exif.name}</div>`
@@ -232,6 +241,32 @@ function toggleButtonState(sign) {
 }
 
 /**
+ * получает массив объектов, делить его содержимое на 3 массива и возвращает новый массив с тремя массивами внутри
+ * @param {array} array 
+ */
+function splitAnArray(array) {
+  let size = 3
+  let subData = []
+
+  for (let index = 0; index < Math.floor(array.length / size); index++) {
+    subData[index] = array.slice((index * size), (index == 2 ? (index * size) + 4 : (index * size) + size))
+  }
+  return subData
+}
+
+/**
+ * получает массив массивов с объектами и возвращает один большой массив c N-количеством (от splita) html строками
+ * @param {object[][]} arrayColums 
+ * @returns {string[]}
+ */
+function createHtmlForColumns(arrayColums) {
+
+  return arrayColums.map((column) => {
+    return createHtmlStringFromArrayOfElements(column)
+  })
+}
+
+/**
  * 1 получает данные для текущей страницы
  * 2 создает html, добавляет на страницу
  */
@@ -239,16 +274,10 @@ function renderAll() {
   toggleButtonState(true)
 
   getAllPhotosData(counterPage).then(function (data) {
-    debugger;
-    let size = 3
-    let subData = []
+    const dataForColumns = splitAnArray(data)
+    const htmlForColumns = createHtmlForColumns(dataForColumns)
 
-    for (let index = 0; index < Math.floor(data.length / size); index++) {
-      subData[index] = data.slice((index * size), (index == 2 ? (index * size) + 4 : (index * size) + size))
-    }
-    console.log(subData)
-    
-    renderItems(createHtmlStringFromArrayOfElements(data))
+    renderItems(htmlForColumns)
     toggleButtonState(false)
   })
 }
