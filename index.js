@@ -153,24 +153,46 @@ function createHtmlStringFromArrayOfElements(arr) {
 }
 
 /**
+ * данная функция выдает номер индекса самой короткой колонки  
+ * @param {*} columns
+ * @param {*} index 
+ */
+function calculateTopmostColumn() {
+  const columnsEls = document.querySelectorAll('[data-col]')
+  const col0Height = columnsEls[0].offsetHeight
+  const col1Height = columnsEls[1].offsetHeight
+  const col2Height = columnsEls[2].offsetHeight
+
+  if (col0Height < col1Height && col0Height < col2Height) {
+    return 0
+  }
+
+  if (col1Height < col0Height && col1Height < col2Height) {
+    return 1
+  }
+
+  return 2
+}
+
+/**
  * данная функция получает массив строк с html данными и каждый раз перезаписывает в data-wrapper
  * @param {string[]} htmlColumns - массив строк
  */
 function renderItems(htmlColumns) {
+  debugger;
   //выбираем элемент в html куда будем подставлять результат строки со всеми html
   //в выбранный элемент в html подставляем строку с всеми html элементами
-  // array.forEach(function (item, index) {
-  //   columns[index].insertAdjacentHTML('beforeend', str)
-  // })
-
+  const indexMinHeight = calculateTopmostColumn()
   const wrapperEl = document.querySelector('[data-wrapper]')
   const colElements = wrapperEl.querySelectorAll('[data-col]')
 
   htmlColumns.forEach(function (str, index) {
-    colElements[index].insertAdjacentHTML('beforeend', str)
+    if (colElements[index]) {
+      colElements[index].insertAdjacentHTML('beforeend', str)
+    } else {
+    colElements[indexMinHeight].insertAdjacentHTML('beforeend', str)
+    }
   })
-
-  
 }
 
 /**
@@ -247,10 +269,11 @@ function toggleButtonState(sign) {
 function splitAnArray(array) {
   let size = 3
   let subData = []
-
-  for (let index = 0; index < Math.floor(array.length / size); index++) {
-    subData[index] = array.slice((index * size), (index == 2 ? (index * size) + 4 : (index * size) + size))
+  
+  for (let index = 0; index < Math.ceil(array.length / size); index++) {
+    subData[index] = array.slice((index * size), ((index * size) + size))
   }
+  console.log(subData)
   return subData
 }
 
@@ -275,6 +298,8 @@ function renderAll() {
 
   getAllPhotosData(counterPage).then(function (data) {
     const dataForColumns = splitAnArray(data)
+    console.log(calculateTopmostColumn())
+
     const htmlForColumns = createHtmlForColumns(dataForColumns)
 
     renderItems(htmlForColumns)
