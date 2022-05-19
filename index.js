@@ -85,8 +85,9 @@ function createHtmlForSocialBlocks(title, url, username) {
 function createItemHtmlFromObject(el) {
   const colorHtml = `<div class='circle-color' style='background-color: ${el.color}'></div>`
   const dateStr = formatDateTime(el.created_at)
-  const description = el.description === null ? '' : `Description: ${el.description}`
-  const bioHtml = el.user.bio === null ? '' : `<div>Bio: ${el.user.bio}</div>`
+  const description = el.description || 'No description'
+  const bioHtml = el.user.bio || 'No Bio'
+
 
   const portfolioHtml = createHtmlForSocialBlocks(
     'Portfolio',
@@ -107,32 +108,30 @@ function createItemHtmlFromObject(el) {
 
     return `
     <div class="mosaic-item">
-      <a href="${el.urls.full}" data-img data-pswp-width="${el.width}" data-pswp-height="${el.height}" target="_blank">
+      <a href="${el.urls.full}" data-img data-pswp-width="${el.width}" data-pswp-height="${el.height}" title="${description}" target="_blank">
         <img class="mosaic-img" src="${el.urls.small_s3}" alt="">
       </a>
       <div class="mosaic-info">
         <div class='mosaic-likes'>💔 ${el.likes}</div>
         ${colorHtml}
         <div>${dateStr}</div>
-        ${description}
         <div>
           <a href='https://unsplash.com/@${el.user.username}' target="_blank">
-            <img class='mosaic-avatar' src="${el.user.profile_image.large}" alt="">
+            <img class='mosaic-avatar' title="${bioHtml}" src="${el.user.profile_image.large}" alt="">
           </a>
           <a href="https://unsplash.com/@${el.user.username}" target="_blank">${el.user.name}</a>
         </div>  
-        ${bioHtml}
         ${portfolioHtml}
         ${instaHtml}
         ${twitterHtml}
-        <div>
-          <button class='btnItemById turn-on' data-btnItemById='${el.id}'>Additional Information</button>
-        </div>
-        <div data-additionalInfo='${el.id}'>
-          
-        </div>
       </div>
+
     </div>
+
+    <div>
+      <button class='btnItemById' data-btnItemById='${el.id}'>Additional Information</button>
+    </div>
+    <div class='additirial-info' data-additionalInfo='${el.id}'></div>
   `
 }
 
@@ -153,7 +152,7 @@ function createHtmlStringFromArrayOfElements(arr) {
 }
 
 /**
- * данная функция выдает номер индекса самой короткой колонки  
+ * данная функция возвращает номер индекса самой короткой колонки  
  * @param {*} columns
  * @param {*} index 
  */
@@ -179,7 +178,6 @@ function calculateTopmostColumn() {
  * @param {string[]} htmlColumns - массив строк
  */
 function renderItems(htmlColumns) {
-  debugger;
   //выбираем элемент в html куда будем подставлять результат строки со всеми html
   //в выбранный элемент в html подставляем строку с всеми html элементами
   const indexMinHeight = calculateTopmostColumn()
@@ -190,7 +188,7 @@ function renderItems(htmlColumns) {
     if (colElements[index]) {
       colElements[index].insertAdjacentHTML('beforeend', str)
     } else {
-    colElements[indexMinHeight].insertAdjacentHTML('beforeend', str)
+      colElements[indexMinHeight].insertAdjacentHTML('beforeend', str)
     }
   })
 }
@@ -273,7 +271,6 @@ function splitAnArray(array) {
   for (let index = 0; index < Math.ceil(array.length / size); index++) {
     subData[index] = array.slice((index * size), ((index * size) + size))
   }
-  console.log(subData)
   return subData
 }
 
@@ -298,7 +295,6 @@ function renderAll() {
 
   getAllPhotosData(counterPage).then(function (data) {
     const dataForColumns = splitAnArray(data)
-    console.log(calculateTopmostColumn())
 
     const htmlForColumns = createHtmlForColumns(dataForColumns)
 
@@ -316,3 +312,14 @@ buttonEl.addEventListener('click', function () {
   counterPage ++
   renderAll()
 })
+
+
+// -----------------------------------------------------------------
+
+// let elem = document.getElementById('opacity');
+// elem.onmouseover = function () {
+//     elem.style.opacity = "0.4";
+// };
+// elem.onmouseleave = function () {
+//     elem.style.opacity = "1";
+// }

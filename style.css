@@ -1,9 +1,9 @@
 body {
     margin: 0;
 
-    font-size: 17px;
+    font-size: 12px;
     color: #111;
-    line-height: 1.6;
+    line-height: 1.1;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
 }
@@ -94,11 +94,17 @@ div {
 
 .mosaic-item {
     width: 100%;
-    margin-bottom: 20px;
+    position: relative;
+
+    font-size: 12px;
+    line-height: 1.1em;
 }
+
+.mosaic-item a { color: white }
 
 .mosaic-img {
     width: 100%;
+    cursor: zoom-in;
 }
 
 
@@ -109,12 +115,23 @@ div {
 }
 
 .mosaic-info {
-    font-size: 13px;
+    font-size: 12px;
+    line-height: 1.1em;
+    color: white;
+    background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));
+    
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 10px;
+    padding-left: 10px;
 }
 
 .mosaic-likes {
     display: flex;
     justify-content: flex-end;
+    padding-right: 10px;
 }
 
 .container-btn {
@@ -125,8 +142,15 @@ div {
 
 .btnItemById {
     font-size: 13px;
+    
 }
 
 .mosaic-col {
 
+}
+
+.additirial-info {
+    font-size: 12px;
+    line-height: 1.1em;
+    margin-bottom: 20px;
 }
