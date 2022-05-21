@@ -111,23 +111,21 @@ function createItemHtmlFromObject(el) {
       <a href="${el.urls.full}" data-img data-pswp-width="${el.width}" data-pswp-height="${el.height}" title="${description}" target="_blank">
         <img class="mosaic-img" src="${el.urls.small_s3}" alt="">
       </a>
-      <div class="mosaic-info">
+      <div class="mosaic-infoTop mosaic-text">
+        <div>${dateStr}</div>
         <div class='mosaic-likes'>💔 ${el.likes}</div>
         ${colorHtml}
-        <div>${dateStr}</div>
-        <div>
-          <a href='https://unsplash.com/@${el.user.username}' target="_blank">
-            <img class='mosaic-avatar' title="${bioHtml}" src="${el.user.profile_image.large}" alt="">
-          </a>
-          <a href="https://unsplash.com/@${el.user.username}" target="_blank">${el.user.name}</a>
-        </div>  
-        ${portfolioHtml}
+      </div> 
+      <div class="mosaic-infoBottom mosaic-text">
+        <a class="avatar-name" href='https://unsplash.com/@${el.user.username}' target="_blank">
+          <img class='mosaic-avatar' title="${bioHtml}" src="${el.user.profile_image.large}" alt="">
+          ${el.user.name}
+        </a>
         ${instaHtml}
         ${twitterHtml}
+        ${portfolioHtml}
       </div>
-
     </div>
-
     <div>
       <button class='btnItemById' data-btnItemById='${el.id}'>Additional Information</button>
     </div>

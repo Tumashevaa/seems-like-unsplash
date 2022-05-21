@@ -6,6 +6,7 @@ body {
     line-height: 1.1;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
+    font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
 }
 
 *,
@@ -98,42 +99,54 @@ div {
 
     font-size: 12px;
     line-height: 1.1em;
+    color: #fff;
 }
 
-.mosaic-item a { color: white }
+.mosaic-item a { color: #fff; }
 
 .mosaic-img {
     width: 100%;
     cursor: zoom-in;
 }
 
-
 .mosaic-avatar {
-    width: 12%;
-    height: auto;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
 }
 
-.mosaic-info {
-    font-size: 12px;
-    line-height: 1.1em;
-    color: white;
+.mosaic-text {
+    text-decoration: none;
+    text-shadow: 0 1px 8px #0000001a;
+    will-change: opacity;
+    line-height: 14px;
+}
+
+.mosaic-infoTop {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 20px;
+}
+
+.mosaic-infoBottom {
     background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));
-    
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    padding-bottom: 10px;
-    padding-left: 10px;
+    padding: 20px;
 }
 
-.mosaic-likes {
+.avatar-name {
     display: flex;
-    justify-content: flex-end;
-    padding-right: 10px;
+    align-items: center;
+    text-decoration: none;
 }
-
 .container-btn {
     display: flex;
     justify-content: center;
