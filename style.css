@@ -19,18 +19,22 @@ div {
     display: block;
 }
 
-.logo {
-    display: flex;
-    font-size: 30px;
-    align-content: center;
-    background-color: #bbb4b478;
-    height: 60px;
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 0 4px 12px #00000014, 0 0 1px #0100001a;
+}
 
+.logo {
+    font-size: 30px;
+    background-color: #fff;
+    height: 60px;
     padding-left: 20px;
 }
 
 .container {
-    padding: 5px 60px 72px;
+    padding: 70px 60px 72px;
 }
 
 .user-info {
@@ -113,6 +117,7 @@ div {
     width: 30px;
     height: 30px;
     border-radius: 50%;
+    margin-right: 5px;
 }
 
 .mosaic-text {
