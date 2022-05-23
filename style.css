@@ -106,11 +106,17 @@ div {
     color: #fff;
 }
 
+.mosaic-item:hover .mosaic-img {
+    filter: brightness(0.8);
+}
+
 .mosaic-item a { color: #fff; }
 
 .mosaic-img {
     width: 100%;
     cursor: zoom-in;
+
+    transition: filter 0.5s ease;
 }
 
 .mosaic-avatar {
