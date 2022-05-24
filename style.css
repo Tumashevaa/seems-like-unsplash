@@ -120,14 +120,6 @@ div {
     word-break: break-all;
 }
 
-.mosaic-item:hover .mosaic-img {
-    filter: brightness(0.8);
-}
-
-.mosaic-item:hover .mosaic-infoBottom {
-    display: block;
-}
-
 .mosaic-item a { color: #fff; }
 
 .mosaic-img {
@@ -135,6 +127,10 @@ div {
     cursor: zoom-in;
 
     transition: filter 0.5s ease;
+}
+
+.mosaic-item:hover .mosaic-img {
+    filter: brightness(0.8);
 }
 
 .mosaic-avatar {
@@ -148,11 +144,15 @@ div {
     text-decoration: none;
     text-shadow: 0 1px 8px #0000001a;
     will-change: opacity;
-    line-height: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+
+    opacity: 0.9;
+    transition: opacity .1s ease-in-out;
 }
 
 .mosaic-infoTop {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: flex-end;
     position: absolute;
@@ -160,6 +160,10 @@ div {
     right: 0;
     top: 0;
     padding: 20px;
+}
+
+.mosaic-item:hover .mosaic-infoTop {
+    display: flex;
 }
 
 .mosaic-infoBottom {
@@ -172,10 +176,16 @@ div {
     padding: 20px;
 }
 
+.mosaic-item:hover .mosaic-infoBottom {
+    display: block;
+}
+
 .avatar-name {
     display: flex;
     align-items: center;
     text-decoration: none;
+    font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
 }
 .container-btn {
     display: flex;
@@ -185,7 +195,7 @@ div {
 
 .btnItemById {
     font-size: 13px;
-    
+    font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
 }
 
 .mosaic-col {
