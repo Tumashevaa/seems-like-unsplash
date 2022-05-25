@@ -83,7 +83,6 @@ function createHtmlForSocialBlocks(title, url, username) {
  * @returns {string} - html разметка о фотографии
  */
 function createItemHtmlFromObject(el) {
-  const colorHtml = `<div class='circle-color' style='background-color: ${el.color}'></div>`
   const dateStr = formatDateTime(el.created_at)
   const description = el.description || 'No description'
   const bioHtml = el.user.bio || 'No Bio'
@@ -107,14 +106,13 @@ function createItemHtmlFromObject(el) {
   )
 
     return `
-    <div class="mosaic-item">
+    <div class="mosaic-item" style="aspect-ratio: ${el.width}/${el.height};background-color: ${el.color};">
       <a href="${el.urls.full}" data-img data-pswp-width="${el.width}" data-pswp-height="${el.height}" title="${description}" target="_blank">
         <img class="mosaic-img" src="${el.urls.small_s3}" alt="">
       </a>
       <div class="mosaic-infoTop mosaic-text">
         <div>${dateStr}</div>
         <div class='mosaic-likes'>💔 ${el.likes}</div>
-        ${colorHtml}
       </div> 
       <div class="mosaic-infoBottom mosaic-text">
         <a class="avatar-name" href='https://unsplash.com/@${el.user.username}' target="_blank">
@@ -292,6 +290,7 @@ function renderAll() {
   toggleButtonState(true)
 
   getAllPhotosData(counterPage).then(function (data) {
+    console.log(data)
     const dataForColumns = splitAnArray(data)
 
     const htmlForColumns = createHtmlForColumns(dataForColumns)

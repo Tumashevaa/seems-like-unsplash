@@ -123,6 +123,7 @@ div {
 .mosaic-item a { color: #fff; }
 
 .mosaic-img {
+    display: block;
     width: 100%;
     cursor: zoom-in;
 
