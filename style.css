@@ -22,7 +22,7 @@ div {
 .header {
     position: fixed;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
     box-shadow: 0 4px 12px #00000014, 0 0 1px #0100001a;
 }
 
@@ -113,6 +113,7 @@ div {
 .mosaic-item {
     width: 100%;
     position: relative;
+    margin-bottom: 24px;
 
     font-size: 12px;
     line-height: 1.1em;
@@ -195,6 +196,12 @@ div {
 }
 
 .btnItemById {
+    position: absolute;
+    left: auto;
+    right: 20px;
+    top: auto;
+    bottom: 20px;
+
     font-size: 13px;
     font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
 }
@@ -204,7 +211,22 @@ div {
 }
 
 .additirial-info {
+    z-index: 1;
+    display: none;
     font-size: 12px;
     line-height: 1.1em;
-    margin-bottom: 20px;
+    background-color: rgb(119, 68, 68);
+    text-align: start;
+    color: black;
+
+    padding: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.btnEsc {
+    /* display: block; */
 }

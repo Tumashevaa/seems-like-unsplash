@@ -87,7 +87,6 @@ function createItemHtmlFromObject(el) {
   const description = el.description || 'No description'
   const bioHtml = el.user.bio || 'No Bio'
 
-
   const portfolioHtml = createHtmlForSocialBlocks(
     'Portfolio',
     el.user.portfolio_url
@@ -107,13 +106,17 @@ function createItemHtmlFromObject(el) {
 
     return `
     <div class="mosaic-item" style="aspect-ratio: ${el.width}/${el.height};background-color: ${el.color};">
+      <div class='additirial-info' data-additionalInfo='${el.id}'>
+      </div>
       <a href="${el.urls.full}" data-img data-pswp-width="${el.width}" data-pswp-height="${el.height}" title="${description}" target="_blank">
         <img class="mosaic-img" src="${el.urls.small_s3}" alt="">
       </a>
+
       <div class="mosaic-infoTop mosaic-text">
         <div>${dateStr}</div>
         <div class='mosaic-likes'>💔 ${el.likes}</div>
       </div> 
+
       <div class="mosaic-infoBottom mosaic-text">
         <a class="avatar-name" href='https://unsplash.com/@${el.user.username}' target="_blank">
           <img class='mosaic-avatar' title="${bioHtml}" src="${el.user.profile_image.large}" alt="">
@@ -122,12 +125,11 @@ function createItemHtmlFromObject(el) {
         ${instaHtml}
         ${twitterHtml}
         ${portfolioHtml}
+        <div>
+          <button class='btnItemById' data-btnItemById='${el.id}'>Info</button>
+        </div>
       </div>
     </div>
-    <div>
-      <button class='btnItemById' data-btnItemById='${el.id}'>Additional Information</button>
-    </div>
-    <div class='additirial-info' data-additionalInfo='${el.id}'></div>
   `
 }
 
@@ -215,7 +217,7 @@ document.addEventListener('click', function(event) {
     getPhotoDataById(id).then(function(data) {
       const divDataAdditionalInfo = document.querySelector(`[data-additionalInfo='${id}']`)
 
-      const cameraName = data.exif.name === null ? '' : `<div>Camera name: ${data.exif.name}</div>`
+      const cameraName = data.exif.name === null ? '' : `<div>Camera: ${data.exif.name}</div>`
       const isoEl = data.exif.iso === null ? '' : `<div>ISO: ${data.exif.iso}</div>`
       const aperture = data.exif.aperture === null ? '' : `<div>Aperture: ${data.exif.aperture}</div>`
       const exposureTime = data.exif.exposure_time === null ? '' : `<div>Exposure time: ${data.exif.exposure_time}</div>`
@@ -223,7 +225,20 @@ document.addEventListener('click', function(event) {
       const country = data.location.country === null ? '' : `<div>Country: ${data.location.country}</div>`
       const city = data.location.city === null ? '' : `<div>City: ${data.location.city}</div>`
       const resultAdditionalInfo = `${cameraName}${isoEl}${aperture}${exposureTime}${focalLength}${country}${city}`
-      divDataAdditionalInfo.innerHTML = resultAdditionalInfo || `No data`
+      const btnEsc = `<button class="btnEsc" data-btnEsc>esc</button>`
+      const noData = `<div>No data</div>`
+      const content = `${resultAdditionalInfo}${btnEsc}`
+      resultAdditionalInfo === null ? divDataAdditionalInfo.innerHTML = `${noData} ${btnEsc}` : divDataAdditionalInfo.innerHTML = `${content}`
+      // divDataAdditionalInfo.innerHTML = `${content}` || `No data ${btnEsc}`
+      divDataAdditionalInfo.style.display = 'block'
+      // if(resultAdditionalInfo != null) {
+      //   divDataAdditionalInfo.innerHTML = `${resultAdditionalInfo}${btnEsc}`
+      //   divDataAdditionalInfo.style.display = 'block'
+      // } else {
+      //   divDataAdditionalInfo.innerHTML = `No data ${btnEsc}`
+      //   divDataAdditionalInfo.style.display = 'block'
+      // }
+
     })
   }
 })
