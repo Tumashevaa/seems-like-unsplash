@@ -126,7 +126,7 @@ function createItemHtmlFromObject(el) {
         ${twitterHtml}
         ${portfolioHtml}
         <div>
-          <button class='btnItemById' data-btnItemById='${el.id}'>Info</button>
+          <button class='btnItemById' data-btnItemById='${el.id}' data-loading>Info</button>
         </div>
       </div>
     </div>
@@ -203,6 +203,19 @@ function getAllPhotosData(page) {
     })
 }
 
+const myBtn = Event.target
+
+function btnLoadingInfoById(myBtn, sign) {
+  const fghjk123 = document.querySelector('[data-btnItemById]')
+  if(sign === true){
+    fghjk123.innerText = 'Loading...'
+    fghjk123.disabled = true
+  } else {
+    fghjk123.innerText = 'Info'
+    fghjk123.disabled = false
+  }
+}
+
 /**
  * обработчик событий на весь документ
  * передаем функцию, чтобы при клике на определенной кнопке с заданным атрибутом происходили следующие действия
@@ -211,8 +224,9 @@ function getAllPhotosData(page) {
  * 
  */
 document.addEventListener('click', function(event) {
+  // debugger;
+  btnLoadingInfoById(myBtn, true)
   const id = event.target.getAttribute('data-btnItemById')
-
   if (id !== null) {
     getPhotoDataById(id).then(function(data) {
       const divDataAdditionalInfo = document.querySelector(`[data-additionalInfo='${id}']`)
@@ -226,19 +240,14 @@ document.addEventListener('click', function(event) {
       const city = data.location.city === null ? '' : `<div>City: ${data.location.city}</div>`
       const resultAdditionalInfo = `${cameraName}${isoEl}${aperture}${exposureTime}${focalLength}${country}${city}`
       const btnEsc = `<button class="btnEsc" data-btnEsc>esc</button>`
-      const noData = `<div>No data</div>`
-      const content = `${resultAdditionalInfo}${btnEsc}`
-      resultAdditionalInfo === null ? divDataAdditionalInfo.innerHTML = `${noData} ${btnEsc}` : divDataAdditionalInfo.innerHTML = `${content}`
-      // divDataAdditionalInfo.innerHTML = `${content}` || `No data ${btnEsc}`
-      divDataAdditionalInfo.style.display = 'block'
-      // if(resultAdditionalInfo != null) {
-      //   divDataAdditionalInfo.innerHTML = `${resultAdditionalInfo}${btnEsc}`
-      //   divDataAdditionalInfo.style.display = 'block'
-      // } else {
-      //   divDataAdditionalInfo.innerHTML = `No data ${btnEsc}`
-      //   divDataAdditionalInfo.style.display = 'block'
-      // }
+      const content = resultAdditionalInfo || 'No data'
+      divDataAdditionalInfo.innerHTML = `${content} ${btnEsc}`
+      divDataAdditionalInfo.style.display = 'flex'
 
+      divDataAdditionalInfo.querySelector('[data-btnEsc]').addEventListener('click', function() {
+        divDataAdditionalInfo.style.display = 'none'
+      })
+      btnLoadingInfoById(myBtn, false)
     })
   }
 })
@@ -327,11 +336,3 @@ buttonEl.addEventListener('click', function () {
 
 
 // -----------------------------------------------------------------
-
-// let elem = document.getElementById('opacity');
-// elem.onmouseover = function () {
-//     elem.style.opacity = "0.4";
-// };
-// elem.onmouseleave = function () {
-//     elem.style.opacity = "1";
-// }
