@@ -106,7 +106,7 @@ function createItemHtmlFromObject(el) {
 
     return `
     <div class="mosaic-item" style="aspect-ratio: ${el.width}/${el.height};background-color: ${el.color};">
-      <div class='additirial-info' data-additionalInfo='${el.id}'>
+      <div class='additirial-info hide' data-additionalInfo='${el.id}'>
       </div>
       <a href="${el.urls.full}" data-img data-pswp-width="${el.width}" data-pswp-height="${el.height}" title="${description}" target="_blank">
         <img class="mosaic-img" src="${el.urls.small_s3}" alt="">
@@ -126,7 +126,7 @@ function createItemHtmlFromObject(el) {
         ${twitterHtml}
         ${portfolioHtml}
         <div>
-          <button class='btnItemById' data-btnItemById='${el.id}' data-loading>Info</button>
+          <button id='Info' class='btnItemById' data-btnItemById='${el.id}'>Info</button>
         </div>
       </div>
     </div>
@@ -203,16 +203,14 @@ function getAllPhotosData(page) {
     })
 }
 
-const myBtn = Event.target
-
 function btnLoadingInfoById(myBtn, sign) {
-  const fghjk123 = document.querySelector('[data-btnItemById]')
-  if(sign === true){
-    fghjk123.innerText = 'Loading...'
-    fghjk123.disabled = true
+  if (sign === true) {
+    myBtn.dataset.myAwesomeCaptionBackup = myBtn.innerText
+    myBtn.innerText = 'Loading...'
+    myBtn.disabled = true
   } else {
-    fghjk123.innerText = 'Info'
-    fghjk123.disabled = false
+    myBtn.innerText = myBtn.dataset.myAwesomeCaptionBackup
+    myBtn.disabled = false
   }
 }
 
@@ -224,10 +222,11 @@ function btnLoadingInfoById(myBtn, sign) {
  * 
  */
 document.addEventListener('click', function(event) {
-  // debugger;
-  btnLoadingInfoById(myBtn, true)
-  const id = event.target.getAttribute('data-btnItemById')
+  const targetElement = event.target
+  const id = targetElement.getAttribute('data-btnItemById')
   if (id !== null) {
+    // id не null, это точно кнопка
+    btnLoadingInfoById(targetElement, true)
     getPhotoDataById(id).then(function(data) {
       const divDataAdditionalInfo = document.querySelector(`[data-additionalInfo='${id}']`)
 
@@ -242,13 +241,14 @@ document.addEventListener('click', function(event) {
       const btnEsc = `<button class="btnEsc" data-btnEsc>esc</button>`
       const content = resultAdditionalInfo || 'No data'
       divDataAdditionalInfo.innerHTML = `${content} ${btnEsc}`
-      divDataAdditionalInfo.style.display = 'flex'
+      divDataAdditionalInfo.classList.remove('hide')
 
       divDataAdditionalInfo.querySelector('[data-btnEsc]').addEventListener('click', function() {
-        divDataAdditionalInfo.style.display = 'none'
+        divDataAdditionalInfo.classList.add('hide')
       })
-      btnLoadingInfoById(myBtn, false)
+      btnLoadingInfoById(targetElement, false)
     })
+    
   }
 })
 

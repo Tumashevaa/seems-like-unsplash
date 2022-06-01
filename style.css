@@ -118,7 +118,7 @@ div {
     font-size: 12px;
     line-height: 1.1em;
     color: #fff;
-    word-break: break-all;
+    /* word-break: break-all; */
 }
 
 .mosaic-item a { color: #fff; }
@@ -210,16 +210,19 @@ div {
 
 }
 
+.hide {
+    display: none !important;
+}
+
 .additirial-info {
     z-index: 1;
-    display: none;
+    display: flex;
     font-size: 12px;
     line-height: 1.1em;
     background-color: rgba(231 217 217 / 108.5%);
     text-align: start;
     
     justify-content: center;
-    align-items: center;
     flex-direction: column;
     color: black;
 
