@@ -245,5 +245,13 @@ div {
 .btn-like {
     background-color: #fff;
     border-color: #d1d1d1;
-    color: #767676;
+    
+    height: 32px;
+    padding: 0 11px;
+}
+
+.svg-like {
+    position: relative;
+    top: -1px;
+    width: 15px;
 }
