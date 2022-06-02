@@ -118,7 +118,6 @@ div {
     font-size: 12px;
     line-height: 1.1em;
     color: #fff;
-    word-break: break-all;
 }
 
 .mosaic-item a { color: #fff; }
@@ -176,6 +175,8 @@ div {
     right: 0;
     bottom: 0;
     padding: 20px;
+
+    word-break: break-all;
 }
 
 .mosaic-item:hover .mosaic-infoBottom {
@@ -204,6 +205,15 @@ div {
 
     font-size: 13px;
     font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
+    background-color: #fff;
+    color: #767676;
+    fill: currentColor;
+    border: 1px solid #0000;
+    border-color: #d1d1d1;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px #0000000a;
+    height: 32px;
+    padding: 0 7px;
 }
 
 .mosaic-col {
@@ -240,15 +250,33 @@ div {
     right: 20px;
     top: auto;
     bottom: 20px;
+
+    background-color: #fff;
+    color: #767676;
+    fill: currentColor;
+    border: 1px solid #0000;
+    border-color: #d1d1d1;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px #0000000a;
+    height: 32px;
+    padding: 0 7px;
 }
 
 .btn-like {
     background-color: #fff;
+    color: #767676;
+    fill: currentColor;
+    border: 1px solid #0000;
     border-color: #d1d1d1;
-    
+    border-radius: 4px;
+    box-shadow: 0 1px 1px #0000000a;
     height: 32px;
     padding: 0 11px;
 }
+
+/* .btn-like:hover {
+    color: #111
+} */
 
 .svg-like {
     position: relative;

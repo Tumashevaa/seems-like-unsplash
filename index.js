@@ -28,7 +28,7 @@ function formatDateTime(createdAtStr) {
   const yearAt = createdAt.getFullYear()
   const hourAt = createdAt.getHours()
   const minutesAt = createdAt.getMinutes()
-  return `${dateAt} ${monthsMap[monthAt]} ${yearAt} ${hourAt}:${minutesAt}`
+  return `Date: ${dateAt} ${monthsMap[monthAt]} ${yearAt} ${hourAt}:${minutesAt}`
 }
 
 /**
@@ -83,7 +83,7 @@ function createHtmlForSocialBlocks(title, url, username) {
  * @returns {string} - html разметка о фотографии
  */
 function createItemHtmlFromObject(el) {
-  const dateStr = formatDateTime(el.created_at)
+  
   const description = el.description || 'No description'
   const bioHtml = el.user.bio || 'No Bio'
 
@@ -116,7 +116,7 @@ function createItemHtmlFromObject(el) {
         <button class="btn-like" title="Like" data-like="${el.likes}">
           <svg width="32" height="32" class="svg-like" viewBox="0 0 32 32" version="1.1" aria-hidden="false" data-svgLike fill="grey"><path d="M17.4 29c-.8.8-2 .8-2.8 0l-12.3-12.8c-3.1-3.1-3.1-8.2 0-11.4 3.1-3.1 8.2-3.1 11.3 0l2.4 2.8 2.3-2.8c3.1-3.1 8.2-3.1 11.3 0 3.1 3.1 3.1 8.2 0 11.4l-12.2 12.8z"></path></svg>
         </button>
-        <div>${dateStr}</div>
+        
         <div class='mosaic-likes'>💔 <span data-mosaicLikes>${el.likes}</span></div>
       </div> 
 
@@ -143,7 +143,9 @@ document.addEventListener('click', function(event) {
     const parentEl = btnLikes.parentElement
     const counterLikes = parentEl.querySelector('[data-mosaicLikes]')
     const svgFillRed = parentEl.querySelector('[data-svgLike ]')
-    svgFillRed.setAttribute('fill', 'red')
+    svgFillRed.setAttribute('fill', 'white')
+    btnLikes.setAttribute('style', 'background-color:#e04c4c;')
+    
     const newLikesCount = parseInt(attributeLikesCount, 10) + 1
     counterLikes.innerText = newLikesCount
   }
@@ -246,6 +248,7 @@ document.addEventListener('click', function(event) {
     getPhotoDataById(id).then(function(data) {
       const divDataAdditionalInfo = document.querySelector(`[data-additionalInfo='${id}']`)
 
+      const dateStr = data.created_at === null ? '' : formatDateTime(data.created_at)
       const cameraName = data.exif.name === null ? '' : `<div>Camera: ${data.exif.name}</div>`
       const isoEl = data.exif.iso === null ? '' : `<div>ISO: ${data.exif.iso}</div>`
       const aperture = data.exif.aperture === null ? '' : `<div>Aperture: ${data.exif.aperture}</div>`
@@ -253,7 +256,7 @@ document.addEventListener('click', function(event) {
       const focalLength = data.exif.focal_length === null ? '' : `<div>Focal length: ${data.exif.focal_length}</div>`
       const country = data.location.country === null ? '' : `<div>Country: ${data.location.country}</div>`
       const city = data.location.city === null ? '' : `<div>City: ${data.location.city}</div>`
-      const resultAdditionalInfo = `${cameraName}${isoEl}${aperture}${exposureTime}${focalLength}${country}${city}`
+      const resultAdditionalInfo = `${dateStr}${cameraName}${isoEl}${aperture}${exposureTime}${focalLength}${country}${city}`
       const btnEsc = `<button class="btnEsc" data-btnEsc  title="Close" aria-label="Close">Close</button>`
       const content = resultAdditionalInfo || 'No data'
       divDataAdditionalInfo.innerHTML = `${content} ${btnEsc}`
