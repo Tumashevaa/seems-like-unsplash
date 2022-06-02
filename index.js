@@ -113,8 +113,9 @@ function createItemHtmlFromObject(el) {
       </a>
 
       <div class="mosaic-infoTop mosaic-text">
+        <button class="btn-like" title="Like" data-like="${el.likes}">Like</button>
         <div>${dateStr}</div>
-        <div class='mosaic-likes'>💔 ${el.likes}</div>
+        <div class='mosaic-likes'>💔 <span data-mosaicLikes>${el.likes}</span></div>
       </div> 
 
       <div class="mosaic-infoBottom mosaic-text">
@@ -126,12 +127,26 @@ function createItemHtmlFromObject(el) {
         ${twitterHtml}
         ${portfolioHtml}
         <div>
-          <button id='Info' class='btnItemById' data-btnItemById='${el.id}'>Info</button>
+          <button id='Info' class='btnItemById' data-btnItemById='${el.id}' title="Additirial info">Info</button>
         </div>
       </div>
     </div>
   `
 }
+
+document.addEventListener('click', function(event) {
+  const attributeLikesCount = event.target.getAttribute('data-like')
+  if (attributeLikesCount != null) {
+    const btnLikes = event.target
+    const parentEl = btnLikes.parentElement
+    const counterLikes = parentEl.querySelector('[data-mosaicLikes]')
+    const newLikesCount = parseInt(attributeLikesCount, 10) + 1
+    counterLikes.innerText = newLikesCount
+    btnLikes.style.background = "red"
+  }
+})
+
+
 
 /**
  * данная функция принимает массив объектов и возвращает строку со всеми html элементами
@@ -203,7 +218,7 @@ function getAllPhotosData(page) {
     })
 }
 
-function btnLoadingInfoById(myBtn, sign) {
+function toggleButtonStateById(myBtn, sign) {
   if (sign === true) {
     myBtn.dataset.myAwesomeCaptionBackup = myBtn.innerText
     myBtn.innerText = 'Loading...'
@@ -226,7 +241,7 @@ document.addEventListener('click', function(event) {
   const id = targetElement.getAttribute('data-btnItemById')
   if (id !== null) {
     // id не null, это точно кнопка
-    btnLoadingInfoById(targetElement, true)
+    toggleButtonStateById(targetElement, true)
     getPhotoDataById(id).then(function(data) {
       const divDataAdditionalInfo = document.querySelector(`[data-additionalInfo='${id}']`)
 
@@ -238,7 +253,7 @@ document.addEventListener('click', function(event) {
       const country = data.location.country === null ? '' : `<div>Country: ${data.location.country}</div>`
       const city = data.location.city === null ? '' : `<div>City: ${data.location.city}</div>`
       const resultAdditionalInfo = `${cameraName}${isoEl}${aperture}${exposureTime}${focalLength}${country}${city}`
-      const btnEsc = `<button class="btnEsc" data-btnEsc>esc</button>`
+      const btnEsc = `<button class="btnEsc" data-btnEsc  title="Close" aria-label="Close">Close</button>`
       const content = resultAdditionalInfo || 'No data'
       divDataAdditionalInfo.innerHTML = `${content} ${btnEsc}`
       divDataAdditionalInfo.classList.remove('hide')
@@ -246,7 +261,7 @@ document.addEventListener('click', function(event) {
       divDataAdditionalInfo.querySelector('[data-btnEsc]').addEventListener('click', function() {
         divDataAdditionalInfo.classList.add('hide')
       })
-      btnLoadingInfoById(targetElement, false)
+      toggleButtonStateById(targetElement, false)
     })
     
   }

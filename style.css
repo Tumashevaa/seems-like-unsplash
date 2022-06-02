@@ -118,7 +118,7 @@ div {
     font-size: 12px;
     line-height: 1.1em;
     color: #fff;
-    /* word-break: break-all; */
+    word-break: break-all;
 }
 
 .mosaic-item a { color: #fff; }
@@ -240,4 +240,10 @@ div {
     right: 20px;
     top: auto;
     bottom: 20px;
+}
+
+.btn-like {
+    background-color: #fff;
+    border-color: #d1d1d1;
+    color: #767676;
 }
