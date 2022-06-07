@@ -114,7 +114,7 @@ function createItemHtmlFromObject(el) {
 
       <div class="mosaic-infoTop mosaic-text">
         <button class="btn-like" title="Like" data-like="${el.likes}">
-          <svg data-svgLike width="32" height="32" class="svg-like" viewBox="0 0 32 32" version="1.1" aria-hidden="false" fill="grey"><path data-path d="M17.4 29c-.8.8-2 .8-2.8 0l-12.3-12.8c-3.1-3.1-3.1-8.2 0-11.4 3.1-3.1 8.2-3.1 11.3 0l2.4 2.8 2.3-2.8c3.1-3.1 8.2-3.1 11.3 0 3.1 3.1 3.1 8.2 0 11.4l-12.2 12.8z"></path></svg>
+          <svg data-svgLike width="32" height="32" class="svg-like" viewBox="0 0 32 32" version="1.1" aria-hidden="false" fill="#767676"><path data-path d="M17.4 29c-.8.8-2 .8-2.8 0l-12.3-12.8c-3.1-3.1-3.1-8.2 0-11.4 3.1-3.1 8.2-3.1 11.3 0l2.4 2.8 2.3-2.8c3.1-3.1 8.2-3.1 11.3 0 3.1 3.1 3.1 8.2 0 11.4l-12.2 12.8z"></path></svg>
         </button>
         
         <div class='mosaic-likes'>💔 <span data-mosaicLikes>${el.likes}</span></div>
@@ -143,11 +143,18 @@ document.addEventListener('click', function(event) {
     const attributeLikesCount = btnLikes.getAttribute('data-like')
     const parentEl = btnLikes.parentElement
     const counterLikes = parentEl.querySelector('[data-mosaicLikes]')
-    const newLikesCount = parseInt(attributeLikesCount, 10) + 1
+    let newLikesCount = parseInt(attributeLikesCount, 10)
+
+    if (btnLikes.classList.contains('on')) {
+      newLikesCount--
+      btnLikes.classList.remove('on')
+    } else {
+      newLikesCount++
+      btnLikes.classList.add('on')
+    }
+    
     counterLikes.innerText = newLikesCount
-    const svgEl = parentEl.querySelector('[data-svgLike]')
-    svgEl.fill = "red"
-    btnLikes.setAttribute('style', 'background-color:#e04c4c;')
+    btnLikes.setAttribute('data-like', newLikesCount)
   }
 })
 
